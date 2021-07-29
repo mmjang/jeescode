@@ -1,10 +1,9 @@
 import useIframeInject from "../hooks/useIframeInject";
 import useIframeMessage from "../hooks/useIframeMessage";
+import VirtualConsole from "./VirtualConsole";
 
 export default function BrowserArea({ html, css, javascript }) {
   const messageList = useIframeMessage();
-  console.log("message");
-  console.log(messageList);
   const injectString = useIframeInject();
   const tmpl = `
     <html>
@@ -28,11 +27,9 @@ export default function BrowserArea({ html, css, javascript }) {
   `;
   if (injectString) {
     return (
-      <div className="w-full h-full">
-        {messageList.map((m) => (
-          <p>{m.type}</p>
-        ))}
-        <iframe className="w-full h-full" srcDoc={tmpl}></iframe>
+      <div className="w-full h-full flex flex-col">
+        <iframe className="w-full h-full flex-1" srcDoc={tmpl}></iframe>
+        <VirtualConsole></VirtualConsole>
       </div>
     );
   } else {

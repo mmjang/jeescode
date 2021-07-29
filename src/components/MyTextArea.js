@@ -15,7 +15,6 @@ export default function MyTextArea({
   const debouncedEventFiring = useCallback(
     debounce((value) => {
       if (onChange) {
-        console.log("debouncing", value);
         onChange(value);
       }
     }, 1000),
@@ -24,7 +23,6 @@ export default function MyTextArea({
 
   function _change(event) {
     const val = event.target.value;
-    console.log("onChange:", val);
     debouncedEventFiring(val);
     setValue(val);
   }
