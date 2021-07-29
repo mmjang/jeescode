@@ -3,16 +3,21 @@
  */
 !(function () {
   const oldConsoleLog = console.log;
+  // 用来构造唯一的key值
+  const sessionId = Date.now();
+  let sessionIndex = 0;
+
   console.log = function (...args) {
     if (window.parent.sendMessage) {
-      window.parent.sendMessage({
-        id: Date.now(),
-        type: "console.log",
-        data: {
-          content: args.join(),
-        },
+      setTimeout(() => {
+        window.parent.sendMessage({
+          id: `${sessionId}_${sessionIndex++}`,
+          type: "console.log",
+          data: {
+            content: args.join(),
+          },
+        });
       });
     }
-    oldConsoleLog(...args);
   };
 })();

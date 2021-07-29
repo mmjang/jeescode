@@ -5,9 +5,8 @@ export default function useIframeMessage() {
   const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
-    window.sendMessage = ({ type, data }) => {
-      debugger;
-      setMessageList(messageList.concat([{ type, data }]));
+    window.sendMessage = (args) => {
+      setMessageList((messageList) => messageList.concat([args]));
     };
     return () => {
       window.sendMessage = undefined;
