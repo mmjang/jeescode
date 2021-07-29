@@ -6,6 +6,7 @@
   console.log = function (...args) {
     if (window.parent.sendMessage) {
       window.parent.sendMessage({
+        id: Date.now(),
         type: "console.log",
         data: {
           content: args.join(),
