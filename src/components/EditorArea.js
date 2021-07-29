@@ -1,3 +1,5 @@
+import MyTextArea from "./MyTextArea";
+
 export default function EditorArea({
   html,
   css,
@@ -9,28 +11,25 @@ export default function EditorArea({
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 p-2">
-        <textarea
+        <MyTextArea
           className="h-full w-full p-1"
           placeholder="html"
-          value={html}
-          onChange={(e) => onHtmlChange(e.target.value)}
-        ></textarea>
+          onChange={onHtmlChange}
+        ></MyTextArea>
       </div>
       <div className="flex-1 p-2">
-        <textarea
+        <MyTextArea
           className="h-full w-full p-1"
           placeholder="css"
-          value={css}
-          onChange={(e) => onCssChange(e.target.value)}
-        ></textarea>
+          onChange={onCssChange}
+        ></MyTextArea>
       </div>
       <div className="flex-1 p-2">
-        <textarea
+        <MyTextArea
           className="h-full w-full p-1"
           placeholder="javascript"
-          value={javascript}
-          onChange={(e) => onJavascriptChange(e.target.value)}
-        ></textarea>
+          onChange={onJavascriptChange}
+        ></MyTextArea>
       </div>
     </div>
   );
