@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { useCallback } from "react";
+import { useEffect } from "react";
 import { debounce } from "../utils";
 
 /**
  * onChange事件是debounce过的
  */
 export default function MyTextArea({
-  initialContent = "",
+  forcedContent = "",
   onChange,
   ...otherProps
 }) {
-  const [value, setValue] = useState(initialContent);
+  const [value, setValue] = useState(forcedContent);
+
+  useEffect(() => {
+    setValue(forcedContent);
+  }, [forcedContent]);
 
   const debouncedEventFiring = useCallback(
     debounce((value) => {

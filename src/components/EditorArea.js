@@ -12,6 +12,7 @@ export default function EditorArea({
     <div className="flex flex-col h-full">
       <div className="flex-1 p-2">
         <MyTextArea
+          forcedContent={html}
           className="h-full w-full p-1"
           placeholder="html"
           onChange={onHtmlChange}
@@ -19,6 +20,7 @@ export default function EditorArea({
       </div>
       <div className="flex-1 p-2">
         <MyTextArea
+          forcedContent={css}
           className="h-full w-full p-1"
           placeholder="css"
           onChange={onCssChange}
@@ -26,6 +28,7 @@ export default function EditorArea({
       </div>
       <div className="flex-1 p-2">
         <MyTextArea
+          forcedContent={javascript}
           className="h-full w-full p-1"
           placeholder="javascript"
           onChange={onJavascriptChange}

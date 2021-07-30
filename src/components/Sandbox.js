@@ -1,12 +1,20 @@
 import { useState } from "react";
+import useQuestion from "../hooks/useQuestion";
 import BrowserArea from "./BrowserArea";
 import DocumentArea from "./DocumentArea";
 import EditorArea from "./EditorArea";
 
-export default function Sandbox({}) {
+export default function Sandbox({ questionNumber = 1 }) {
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [javascript, setJavascript] = useState("");
+  const questionObject = useQuestion(
+    questionNumber,
+    setHtml,
+    setCss,
+    setJavascript
+  );
+
   return (
     <div className="flex justify-items-stretch h-full">
       <div className="flex-1 bg-indigo-200">
