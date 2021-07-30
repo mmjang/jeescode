@@ -45,7 +45,7 @@ export default function Sandbox({ questionNumber = 1 }) {
   return (
     <div className="flex justify-items-stretch h-full">
       <div className="flex-1 bg-indigo-200">
-        <DocumentArea></DocumentArea>
+        <DocumentArea markdown={questionObject?.md}></DocumentArea>
       </div>
       <div className="flex-1 bg-purple-100">
         <EditorArea
