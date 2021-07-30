@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef } from "react";
 import { useState } from "react/cjs/react.development";
 import useIframeMessage from "../hooks/useIframeMessage";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function VirtualConsole() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useLocalStorage("is-virtual-console-open", false);
   const messageList = useIframeMessage();
   const scrollRef = useRef();
 
