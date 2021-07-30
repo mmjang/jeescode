@@ -7,12 +7,7 @@ export default function useQuestion(
   setCss,
   setJavascript
 ) {
-  const [questionObject, setQuestionObject] = useState({
-    md: "",
-    html: "",
-    css: "",
-    js: "",
-  });
+  const [questionObject, setQuestionObject] = useState(null);
 
   useEffect(() => {
     const mdPromise = fetch(`/questions/q${questionNumber}/question.md`).then(
@@ -29,22 +24,14 @@ export default function useQuestion(
     );
 
     Promise.all([mdPromise, htmlPromise, cssPromise, jsPromise]).then(
-      ([md, html, css, js]) => {
+      ([md, html, css, javascript]) => {
         setQuestionObject({
+          questionNumber,
           md,
           html,
           css,
-          js,
+          javascript,
         });
-        if (setHtml) {
-          setHtml(html);
-        }
-        if (setCss) {
-          setCss(css);
-        }
-        if (setJavascript) {
-          setJavascript(js);
-        }
       }
     );
   }, [questionNumber]);
