@@ -36,7 +36,10 @@ export default function VirtualConsole() {
         ref={scrollRef}
       >
         {messageList.map((m) => (
-          <p className="font-sans text-green-900 border-b border-gray-50 border-solid">
+          <p
+            className="font-sans text-green-900 border-b border-gray-50 border-solid"
+            key={m.id}
+          >
             {m.data.content}
           </p>
         ))}
