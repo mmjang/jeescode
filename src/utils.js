@@ -36,3 +36,11 @@ export function setQuestionCache(questionNumber, questionObject) {
     localStorage.setItem(cacheKey(questionNumber), "");
   }
 }
+
+export function getQuestionNumberFromHash(hash) {
+  if (hash.match(/^#[0-9]+$/)) {
+    return +hash.slice(1);
+  } else {
+    return 1;
+  }
+}
