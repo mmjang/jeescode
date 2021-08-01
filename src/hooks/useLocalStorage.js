@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
 // Hook
 export default function useLocalStorage(key, initialValue) {
