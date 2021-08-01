@@ -12,7 +12,7 @@ export default function Banner({ children }) {
           <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
         </span>
         <span>
-          <a href="https://github.com/lulu2jinchi">lulu2jinchi</a>
+          <a href="https://github.com/lulu2jinchi">@lulu2jinchi</a>
         </span>
       </div>
     </div>
