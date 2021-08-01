@@ -5,7 +5,6 @@ export default function useQuestionNumber() {
   useEffect(() => {
     function onHashChange() {
       const hash = window.location.hash;
-      debugger;
       if (hash.match(/^#[0-9]+$/)) {
         const questionNumber = +hash.slice(1);
         setQuestionNumber(questionNumber);

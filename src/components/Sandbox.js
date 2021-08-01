@@ -17,7 +17,6 @@ export default function Sandbox({ questionNumber = 1 }) {
 
   useEffect(() => {
     const questionCache = getQuestionCache(questionNumber);
-    debugger;
     if (questionCache) {
       // 存在结题数据本地缓存
       setEditorState({

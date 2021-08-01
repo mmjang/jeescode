@@ -14,7 +14,6 @@ function App() {
 
   function onSelectionChange(event) {
     window.location.href = `#${event.target.value}`;
-    debugger;
     setSelected(event.target.value);
   }
 
