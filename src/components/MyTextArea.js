@@ -1,4 +1,6 @@
+import Editor, { useMonaco } from "@monaco-editor/react";
 import { useState } from "react";
+import { useRef } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { debounce } from "../utils";
@@ -8,14 +10,18 @@ import { debounce } from "../utils";
  */
 export default function MyTextArea({
   forcedContent = "",
+  language,
   onChange,
   ...otherProps
 }) {
+  const editorRef = useRef();
   const [value, setValue] = useState(forcedContent);
 
   useEffect(() => {
-    setValue(forcedContent);
-  }, [forcedContent]);
+    if (editorRef.current) {
+      editorRef.current.setValue(forcedContent);
+    }
+  }, [forcedContent, editorRef]);
 
   const debouncedEventFiring = useCallback(
     debounce((value) => {
@@ -26,18 +32,14 @@ export default function MyTextArea({
     []
   );
 
-  function _change(event) {
-    const val = event.target.value;
+  const _change = useCallback((val) => {
     debouncedEventFiring(val);
     setValue(val);
-  }
+  }, []);
 
-  return (
-    <textarea
-      className="h-full w-full p-1"
-      onChange={_change}
-      value={value}
-      {...otherProps}
-    ></textarea>
-  );
+  const onMount = useCallback((editor) => {
+    editorRef.current = editor;
+  }, []);
+
+  return null;
 }

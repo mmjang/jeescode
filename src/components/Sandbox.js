@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useEffect } from "react";
 import useQuestion from "../hooks/useQuestion";
-import { getQuestionCache, setQuestionCache } from "../utils";
+import { debounce, getQuestionCache, setQuestionCache } from "../utils";
 import BrowserArea from "./BrowserArea";
 import DocumentArea from "./DocumentArea";
 import EditorArea from "./EditorArea";
 
 export default function Sandbox({ questionNumber = 1 }) {
-  const [editorState, setEditorState] = useState({
+  // 初始值是null，后面可以用来检测编辑器里的内容是否已经初始化过了
+  const [initialEditorState, setInitialEditorState] = useState({
+    html: null,
+    css: null,
+    javascript: null,
+  });
+
+  // iframe浏览器的状态
+  const [browserState, setBrowserState] = useState({
     html: "",
     css: "",
     javascript: "",
@@ -19,18 +27,22 @@ export default function Sandbox({ questionNumber = 1 }) {
     const questionCache = getQuestionCache(questionNumber);
     if (questionCache) {
       // 存在结题数据本地缓存
-      setEditorState({
+      const state = {
         html: questionCache.html,
         css: questionCache.css,
         javascript: questionCache.javascript,
-      });
+      };
+      setInitialEditorState(state);
+      setBrowserState(state);
     } else if (questionObject?.questionNumber === questionNumber) {
       // 没缓存，就显示接口里的原题数据
-      setEditorState({
+      const state = {
         html: questionObject.html,
         css: questionObject.css,
         javascript: questionObject.javascript,
-      });
+      };
+      setInitialEditorState(state);
+      setBrowserState(state);
     }
   }, [questionNumber, questionObject]);
 
@@ -41,44 +53,34 @@ export default function Sandbox({ questionNumber = 1 }) {
     setQuestionCache(questionNumber, state);
   }
 
+  function onChange(stateDiff) {
+    const newState = Object.assign({}, browserState, stateDiff);
+    saveDraft(newState);
+    setBrowserState(newState);
+  }
+
+  const deboundedOnChange = debounce(onChange, 500);
+
   return (
     <div className="flex justify-items-stretch h-full">
       <div className="flex-1 bg-indigo-200">
         <DocumentArea markdown={questionObject?.md}></DocumentArea>
       </div>
       <div className="flex-1 bg-purple-100">
-        <EditorArea
-          html={editorState.html}
-          onHtmlChange={(value) => {
-            setEditorState((old) => {
-              const newState = Object.assign({}, old, { html: value });
-              saveDraft(newState);
-              return newState;
-            });
-          }}
-          css={editorState.css}
-          onCssChange={(value) => {
-            setEditorState((old) => {
-              const newState = Object.assign({}, old, { css: value });
-              saveDraft(newState);
-              return newState;
-            });
-          }}
-          javascript={editorState.javascript}
-          onJavascriptChange={(value) => {
-            setEditorState((old) => {
-              const newState = Object.assign({}, old, { javascript: value });
-              saveDraft(newState);
-              return newState;
-            });
-          }}
-        ></EditorArea>
+        {initialEditorState.html !== null ? (
+          <EditorArea
+            html={initialEditorState.html}
+            css={initialEditorState.css}
+            javascript={initialEditorState.javascript}
+            onChange={deboundedOnChange}
+          ></EditorArea>
+        ) : null}
       </div>
       <div className="flex-1 bg-pink-100">
         <BrowserArea
-          html={editorState.html}
-          javascript={editorState.javascript}
-          css={editorState.css}
+          html={browserState.html}
+          javascript={browserState.javascript}
+          css={browserState.css}
         ></BrowserArea>
       </div>
     </div>

@@ -10,6 +10,7 @@ export default function useQuestion(
   const [questionObject, setQuestionObject] = useState(null);
 
   useEffect(() => {
+    setQuestionObject(null);
     const mdPromise = fetch(`/questions/q${questionNumber}/question.md`).then(
       (r) => r.text()
     );
