@@ -19,7 +19,7 @@ export default function EditorArea({ html, css, javascript, onChange }) {
   }, [html, css, javascript]);
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1 p-2">
+      <div className="flex-1 relative">
         <Editor
           defaultLanguage="html"
           theme="vs-dark"
@@ -34,8 +34,11 @@ export default function EditorArea({ html, css, javascript, onChange }) {
           }}
           onMount={(editor) => (htmlEditorRef.current = editor)}
         ></Editor>
+        <div className="absolute right-0 top-0 text-white p-1 rounded-xl bg-red-400">
+          HTML
+        </div>
       </div>
-      <div className="flex-1 p-2">
+      <div className="flex-1 relative">
         <Editor
           defaultLanguage="css"
           theme="vs-dark"
@@ -50,8 +53,11 @@ export default function EditorArea({ html, css, javascript, onChange }) {
           }}
           onMount={(editor) => (cssEditorRef.current = editor)}
         ></Editor>
+        <div className="absolute right-0 top-0 text-white p-1 rounded-xl bg-green-400">
+          CSS
+        </div>
       </div>
-      <div className="flex-1 p-2">
+      <div className="flex-1 relative">
         <Editor
           defaultLanguage="javascript"
           theme="vs-dark"
@@ -64,6 +70,9 @@ export default function EditorArea({ html, css, javascript, onChange }) {
           onChange={(javascript) => onChange({ javascript })}
           onMount={(editor) => (javascriptEditorRef.current = editor)}
         ></Editor>
+        <div className="absolute right-0 top-0 text-white p-1 rounded-xl bg-blue-400">
+          JS
+        </div>
       </div>
     </div>
   );
