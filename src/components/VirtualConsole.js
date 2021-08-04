@@ -37,7 +37,10 @@ export default function VirtualConsole() {
       >
         {messageList.map((m) => (
           <p
-            className="font-sans text-green-900 border-b border-gray-50 border-solid"
+            className={
+              "font-sans border-b border-gray-50 border-solid " +
+              (m.type === "console.error" ? "text-red-500" : "text-green-900")
+            }
             key={m.id}
           >
             {m.data.content}

@@ -20,4 +20,23 @@
       });
     }
   };
+
+  console.error = function (msg) {
+    if (window.parent.sendMessage) {
+      setTimeout(() => {
+        window.parent.sendMessage({
+          id: `${sessionId}_${sessionIndex++}`,
+          type: "console.error",
+          data: {
+            content: msg,
+          },
+        });
+      });
+    }
+  };
+
+  //全局错误捕获
+  window.onerror = function (message, source, lineno, colno, error) {
+    console.error(`line ${lineno}: ${message}`);
+  };
 })();
