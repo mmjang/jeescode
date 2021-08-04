@@ -62,7 +62,7 @@ export default function Sandbox({ questionNumber = 1 }) {
   const deboundedOnChange = debounce(onChange, 500);
 
   return (
-    <div className="flex justify-items-stretch h-full">
+    <div className="flex justify-items-stretch flex-1">
       <div className="flex-1 bg-indigo-200">
         <DocumentArea markdown={questionObject?.md}></DocumentArea>
       </div>
