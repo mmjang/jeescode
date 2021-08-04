@@ -29,7 +29,7 @@ function App() {
         <span className="pl-4 p-1 text-blue-700">题目列表：</span>
         <select value={selected} onChange={onSelectionChange}>
           {questionList.map((q) => (
-            <option value={q.questionNumber}>
+            <option value={q.questionNumber} key={q.questionNumber}>
               {`${q.questionNumber}. ${q.title}`}
             </option>
           ))}
