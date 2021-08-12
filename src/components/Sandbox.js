@@ -62,11 +62,11 @@ export default function Sandbox({ questionNumber = 1 }) {
   const deboundedOnChange = debounce(onChange, 500);
 
   return (
-    <div className="flex justify-items-stretch flex-1">
-      <div className="flex-1 bg-indigo-200">
+    <div className="flex justify-items-stretch flex-1 flex-col md:flex-row">
+      <div className="md:flex-1 bg-indigo-200 min-w">
         <DocumentArea markdown={questionObject?.md}></DocumentArea>
       </div>
-      <div className="flex-1 bg-purple-100">
+      <div className="md:flex-1 bg-purple-100 h-screen">
         {initialEditorState.html !== null ? (
           <EditorArea
             html={initialEditorState.html}
@@ -76,7 +76,7 @@ export default function Sandbox({ questionNumber = 1 }) {
           ></EditorArea>
         ) : null}
       </div>
-      <div className="flex-1 bg-pink-100">
+      <div className="md:flex-1 bg-pink-100">
         <BrowserArea
           html={browserState.html}
           javascript={browserState.javascript}
